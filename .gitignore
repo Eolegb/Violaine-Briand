@@ -6,3 +6,7 @@ Thumbs.db
 *.backup
 *.bak
 *~
+
+# Ancien WordPress hacké — ne pas versionner
+www/
+archive/
