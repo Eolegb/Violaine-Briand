@@ -433,7 +433,7 @@ a.button[href*="buy.stripe.com"] {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 .pay-icon { width: 1.15em; height: 1.15em; flex: none; }
 
