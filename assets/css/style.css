@@ -103,9 +103,9 @@ h1, h2, h3, h4 {
   text-wrap: balance;
 }
 h1 { font-family: var(--font-heading); font-size: clamp(1.85rem, 1.3rem + 2vw, 2.6rem); }
-h2 { font-family: var(--font-subhead); font-weight: 400; font-size: clamp(1.4rem, 1.15rem + 1vw, 1.85rem); }
-h3 { font-family: var(--font-subhead); font-weight: 400; font-size: 1.22rem; }
-h4 { font-family: var(--font-subhead); font-weight: 400; font-size: 1.05rem; }
+h2 { font-family: var(--font-subhead); font-weight: 400; font-size: clamp(4.2rem, 3.45rem + 3vw, 5.55rem); }
+h3 { font-family: var(--font-subhead); font-weight: 400; font-size: 3.66rem; }
+h4 { font-family: var(--font-subhead); font-weight: 400; font-size: 3.15rem; }
 
 p, ul, ol { margin-bottom: var(--space-sm); }
 ul, ol { padding-left: 1.25rem; }
@@ -315,7 +315,7 @@ strong { color: var(--ink); }
   color: var(--ink);
   font-family: var(--font-subhead);
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 3rem;
   letter-spacing: 0.1em;
   margin-bottom: var(--space-sm);
   padding-bottom: 0.5rem;
@@ -377,7 +377,7 @@ strong { color: var(--ink); }
 }
 .post-featured:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .entry-header { margin-bottom: var(--space-sm); }
-.entry-title { font-family: var(--font-subhead); font-weight: 400; font-size: 1.4rem; margin-bottom: 0.25rem; }
+.entry-title { font-family: var(--font-subhead); font-weight: 400; font-size: 4.2rem; margin-bottom: 0.25rem; }
 .entry-meta {
   align-items: center;
   color: var(--muted);
