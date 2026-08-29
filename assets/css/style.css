@@ -514,7 +514,8 @@ figcaption {
 
 /* ---- Polices spécifiques par page ---- */
 body.blog .page-title { font-family: var(--font-subhead); font-weight: 400; }
-.stage-title, .heading-benefits { font-family: var(--font-display); font-weight: 400; }
+.stage-title { font-family: var(--font-display); font-weight: 400; }
+.heading-benefits { font-family: var(--font-display); font-weight: 400; font-size: 1.4rem; }
 
 /* ---- Footer ---- */
 .site-footer {
