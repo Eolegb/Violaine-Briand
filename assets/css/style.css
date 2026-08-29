@@ -324,6 +324,7 @@ strong { color: var(--ink); }
   animation: barGrow 0.9s ease both;
 }
 .page-intro { color: var(--muted); margin-bottom: var(--space-lg); }
+.page-title--sm { font-size: clamp(1.35rem, 1rem + 1.2vw, 1.7rem); }
 
 .post {
   border-bottom: none;
