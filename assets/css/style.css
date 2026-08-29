@@ -16,7 +16,17 @@
    ---------------------------------------------------------- */
 @font-face {
   font-family: 'Radiogram';
-  src: url('../fonts/Radiogram-Regular.ttf') format('truetype');
+  src: url('../fonts/Radiogram-Regular.woff2') format('woff2'),
+       url('../fonts/Radiogram-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Benefits';
+  src: url('../fonts/Benefits.woff2') format('woff2'),
+       url('../fonts/Benefits.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -40,7 +50,7 @@
   --bg-soft: #f4fbfb;
 
   --font-body:    'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-display: 'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-display: 'Benefits', 'Quicksand', Georgia, serif;
   --font-heading: 'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-subhead: 'Radiogram', 'Quicksand', Georgia, serif;
   --font-nav:     'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -101,6 +111,7 @@ h1, h2, h3, h4 {
   line-height: 1.22;
   letter-spacing: -0.01em;
   text-wrap: balance;
+  text-rendering: optimizeLegibility;
 }
 h1 { font-family: var(--font-heading); font-size: clamp(1.85rem, 1.3rem + 2vw, 2.6rem); }
 h2 { font-family: var(--font-subhead); font-weight: 400; font-size: clamp(4.2rem, 3.45rem + 3vw, 5.55rem); }
@@ -170,16 +181,16 @@ strong { color: var(--ink); }
   color: var(--ink);
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 1.3rem + 2.2vw, 2.7rem);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.15;
   transition: color 0.3s ease;
 }
 .site-branding a:hover .site-title { color: var(--teal-dark); }
 .site-description {
-  font-family: var(--font-accent);
+  font-family: var(--font-display);
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-top: 0.2rem;
