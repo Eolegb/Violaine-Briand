@@ -103,7 +103,8 @@ a:hover, a:focus-visible { color: var(--orange-dark); }
   border-radius: 2px;
 }
 
-img { max-width: 100%; height: auto; display: block; }
+img { max-width: 100%; height: auto; display: block; border-radius: var(--radius); }
+.method-grid img { width: 100%; }
 
 h1, h2, h3, h4 {
   color: var(--ink);
@@ -426,7 +427,7 @@ strong { color: var(--ink); }
   margin: 0.25rem 0 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 0.5rem;
 }
 a.button[href*="buy.stripe.com"] {
