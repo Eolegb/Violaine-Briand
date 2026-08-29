@@ -152,15 +152,12 @@ strong { color: var(--ink); }
 }
 .site-branding a:hover .site-title { color: var(--teal-dark); }
 .site-description {
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 2.5px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-top: 0.2rem;
-  background: linear-gradient(90deg, var(--teal), var(--orange));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--muted);
 }
 
 /* ---- Navigation ---- */
@@ -171,20 +168,19 @@ strong { color: var(--ink); }
   align-items: center;
   gap: 0.5rem;
   margin: 0 auto;
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
-  border: none;
-  border-radius: 999px;
-  color: #fff;
+  background: transparent;
+  border: 1px solid rgba(12, 165, 196, 0.45);
+  border-radius: 10px;
+  color: var(--teal-dark);
   cursor: pointer;
   font: inherit;
   font-weight: 600;
-  padding: 0.7rem 1.4rem;
-  box-shadow: 0 8px 22px rgba(12, 165, 196, 0.32);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: 0.6rem 1.2rem;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 .main-navigation .menu-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(12, 165, 196, 0.4);
+  background: var(--teal-dark);
+  color: #fff;
 }
 .main-navigation .menu-toggle .menu-toggle-icon {
   display: inline-block;
@@ -388,42 +384,32 @@ strong { color: var(--ink); }
 
 /* ---- Boutons ---- */
 .button {
-  position: relative;
-  overflow: hidden;
   display: inline-block;
-  background-image: linear-gradient(135deg, var(--teal), var(--teal-dark));
-  color: #fff;
-  border-radius: 999px;
+  background: transparent;
+  color: var(--teal-dark);
+  border: 1px solid rgba(12, 165, 196, 0.45);
+  border-radius: 10px;
   font-weight: 600;
-  padding: 0.7rem 1.5rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  padding: 0.6rem 1.25rem;
   text-decoration: none;
-  box-shadow: 0 10px 24px rgba(12, 165, 196, 0.3);
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, filter 0.3s ease;
-}
-.button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -80%;
-  width: 45%;
-  height: 100%;
-  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-  transform: skewX(-20deg);
-  transition: left 0.55s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 .button:hover, .button:focus-visible {
+  background: var(--teal-dark);
+  border-color: var(--teal-dark);
   color: #fff;
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 16px 34px rgba(12, 165, 196, 0.4);
 }
-.button:hover::before { left: 130%; }
 
 .pay-list .button {
-  background-image: linear-gradient(135deg, var(--orange), var(--orange-dark));
-  box-shadow: 0 10px 24px rgba(247, 162, 59, 0.32);
+  color: var(--orange-dark);
+  border-color: rgba(229, 133, 28, 0.45);
 }
 .pay-list .button:hover, .pay-list .button:focus-visible {
-  box-shadow: 0 16px 34px rgba(247, 162, 59, 0.45);
+  background: var(--orange-dark);
+  border-color: var(--orange-dark);
+  color: #fff;
 }
 
 /* ---- Figures ---- */
