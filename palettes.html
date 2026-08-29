@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Comparatif de palettes — Violaine Briand</title>
+<style>
+:root{
+  --page:#f2f0ea; --card:#ffffff; --ink:#1c1f1d; --body:#4a4f4c; --soft:#7d837f;
+  --line:#e2e0d8; --radius:14px;
+  --f-body:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--page);color:var(--body);font-family:var(--f-body);font-size:16px;line-height:1.65;padding:clamp(1rem,4vw,3rem)}
+.wrap{max-width:82rem;margin:0 auto}
+h1,h2,h3,h4,h5,h6{color:var(--ink);line-height:1.25;font-weight:650}
+h1{font-size:clamp(1.6rem,1.2rem+1.4vw,2.3rem);letter-spacing:-.01em}
+h2{font-size:clamp(1.25rem,1.1rem+.7vw,1.6rem);margin:2.5rem 0 .75rem}
+p{margin-bottom:.75rem}
+.intro{max-width:62ch;color:var(--soft)}
+.pick{background:var(--card);border:1px solid var(--line);border-left:4px solid #3F6B5F;border-radius:var(--radius);padding:1.25rem 1.5rem;margin:1.5rem 0 2.5rem;max-width:70ch}
+.pick h2{margin-top:0;font-size:1.15rem}
+.rule{margin-top:3rem;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem}
+.rule ul{margin:.5rem 0 0 1.1rem}
+.rule li{margin-bottom:.35rem}
+
+/* ---- palette blocks ---- */
+.pal{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(1rem,2.5vw,1.75rem);margin-bottom:2rem}
+.pal__name{font-size:1.3rem}
+.pal__tag{color:var(--soft);font-size:.9rem;margin-bottom:1.25rem}
+.pal__grid{display:grid;gap:clamp(1rem,3vw,2rem);grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:60rem){.pal__grid{grid-template-columns:1fr}}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(8.5rem,1fr));gap:.5rem;margin-bottom:1rem}
+.sw{border:1px solid var(--line);border-radius:10px;padding:.5rem;text-align:center}
+.sw__chip{display:block;height:2.6rem;border-radius:6px;margin-bottom:.4rem;border:1px solid rgba(0,0,0,.06)}
+.sw__hex{display:block;font:600 .78rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink);text-transform:uppercase}
+.sw__role{display:block;font-size:.72rem;color:var(--soft);margin-top:.15rem}
+.b{display:inline-block;margin-top:.35rem;font-size:.68rem;font-weight:700;padding:.1rem .4rem;border-radius:999px}
+.b--ok{background:#e4efe6;color:#2f5449}
+.b--no{background:#fbe9e3;color:#9e4b26}
+.b--deco{background:#eeece5;color:#7d837f}
+.verdict{font-size:.92rem;margin-top:.75rem;padding-left:.85rem;border-left:2px solid var(--line)}
+.verdict--yes{border-left-color:#3F6B5F}
+.verdict--no{border-left-color:#c2603a}
+
+/* ---- jeux de variables : un par palette ---- */
+.pal[data-pal="current"]{
+  --ink:#14363b; --text:#51696c; --muted:#7f9194;
+  --dom:#0ca5c4; --dom-dark:#0889a5; --dom-deep:#076b80; --dom-soft:#e1f4fb;
+  --acc:#f7a23b; --acc-dark:#e5851c; --acc-soft:#fdf0e0;
+  --border:#d8eceb; --bg-soft:#f4fbfb;}
+.pal[data-pal="A"]{
+  --ink:#22322E; --text:#4A5A54; --muted:#5C6D68;
+  --dom:#3F6B5F; --dom-dark:#2F5449; --dom-deep:#28473D; --dom-soft:#E8EFEA;
+  --acc:#B0552E; --acc-dark:#9E4B26; --acc-soft:#F8EDE5;
+  --border:#E3E5DB; --bg-soft:#F6F4EE;}
+.pal[data-pal="B"]{
+  --ink:#12333A; --text:#4D6166; --muted:#586C70;
+  --dom:#12555F; --dom-dark:#0E4650; --dom-deep:#0A3A43; --dom-soft:#E6EDED;
+  --acc:#A2652C; --acc-dark:#976028; --acc-soft:#F7EEDF;
+  --border:#DDE5E3; --bg-soft:#F5F6F2;}
+.pal[data-pal="C"]{
+  --ink:#16292B; --text:#4B5C5E; --muted:#5D6D6F;
+  --dom:#1B3A3C; --dom-dark:#132C2E; --dom-deep:#0E2426; --dom-soft:#E8EDEC;
+  --acc:#A56735; --acc-dark:#9A5F2F; --acc-soft:#F7EEE2;
+  --border:#E4E3DC; --bg-soft:#FAF8F3;}
+
+/* ---- mock : les couleurs viennent des variables de la palette ---- */
+.mock{border-radius:var(--radius);overflow:hidden;background:var(--bg-soft);color:var(--text);
+      font-size:15px;line-height:1.6;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.mock-band{background:linear-gradient(135deg,var(--dom-dark),var(--dom));color:#fff;padding:1.75rem 1.5rem}
+.mock-band__kicker{display:inline-block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+      background:rgba(255,255,255,.18);border-radius:999px;padding:.2rem .65rem;margin-bottom:.6rem}
+.mock-band__title{color:#fff;font-size:1.6rem;font-weight:600;letter-spacing:-.01em}
+.mock-band__sub{color:#fff;opacity:.85;font-size:.85rem;margin:0}
+.mock-nav{display:flex;flex-wrap:wrap;gap:.35rem;padding:.85rem 1.25rem;background:var(--bg-soft)}
+.pill{font-size:.78rem;font-weight:600;padding:.3rem .7rem;border-radius:999px;color:var(--text);background:var(--dom-soft)}
+.pill--on{background:var(--dom);color:#fff}
+.mock-h{color:var(--ink);font-size:1.15rem;padding:1.25rem 1.25rem .2rem}
+.mock-lead{color:var(--muted);padding:0 1.25rem .5rem;font-size:.95rem}
+.mock-soft{margin:.75rem 1.25rem;background:var(--dom-soft);border-radius:10px;padding:.85rem 1rem}
+.mock-soft__t{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dom-deep);font-weight:700;margin-bottom:.4rem}
+.ev{display:flex;gap:.7rem;align-items:baseline;padding:.3rem 0;border-bottom:1px dashed rgba(0,0,0,.12);font-size:.88rem}
+.ev:last-child{border-bottom:none}
+.ev__d{color:var(--acc-dark);font-weight:700;white-space:nowrap}
+.ev__l{color:var(--text)}
+.mock-card{margin:.75rem 1.25rem 1.25rem;background:var(--card,#fff);border:1px solid var(--border);border-radius:10px;padding:1rem;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.mock-card__t{color:var(--ink);font-size:1rem;margin-bottom:.3rem}
+.mock-p{font-size:.9rem;margin-bottom:.85rem}
+.mock-p strong{color:var(--ink)}
+.btns{display:flex;flex-wrap:wrap;gap:.4rem}
+.btn{font-size:.82rem;font-weight:600;padding:.4rem .85rem;border-radius:10px;
+     border:1px solid var(--dom);color:var(--dom-dark);background:transparent}
+.btn--primary{background:var(--dom-deep);border-color:var(--dom-deep);color:#fff}
+.btn--pay{border-color:var(--acc);color:var(--acc-dark)}
+footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.85rem;color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Comparatif de palettes — Violaine Briand</h1>
+  <p class="intro">Quatre directions, appliquées à <strong>exactement la même maquette</strong> (bandeau, navigation, bloc « prochaines dates », carte d'offre, boutons) pour comparer à composants égaux. Les chiffres sont les <strong>ratios de contraste sur fond blanc</strong> : ✓ à partir de 4,5:1 (seuil WCAG AA / RGAA pour le texte courant).</p>
+
+  <div class="pick">
+    <h2>Mon verdict en une phrase</h2>
+    <p>Le turquoise + orange actuel n'est pas « laid » — il est <strong>trop saturé, trop également réparti et trop clair</strong> pour ce que le site raconte (du mouvement lent, de l'attention, du soin). Je garderais l'idée d'un duo froid/chaud, mais en le descendant d'un cran en saturation et en valeur : <strong>je choisirais la palette A — sauge &amp; terre cuite sur fond lin</strong>. Si Violaine tient à son turquoise, la palette B fait le même travail sans la dépayser.</p>
+  </div>
+
+    <section class="pal" data-pal="current">
+      <header class="pal__head">
+        <h3 class="pal__name">Palette actuelle</h3>
+        <p class="pal__tag">Turquoise #0ca5c4 + orange #f7a23b</p>
+      </header>
+      <div class="pal__grid">
+        <div class="pal__col">
+          <div class="swatches">
+            <div class="sw"><span class="sw__chip" style="background:#14363b"></span><span class="sw__hex">#14363b</span><span class="sw__role">titres</span><span class="b b--ok">12.96</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#51696c"></span><span class="sw__hex">#51696c</span><span class="sw__role">corps de texte</span><span class="b b--ok">5.85</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#7f9194"></span><span class="sw__hex">#7f9194</span><span class="sw__role">secondaire</span><span class="b b--no">3.29</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#0ca5c4"></span><span class="sw__hex">#0ca5c4</span><span class="sw__role">turquoise</span><span class="b b--no">2.92</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#0889a5"></span><span class="sw__hex">#0889a5</span><span class="sw__role">liens / boutons</span><span class="b b--no">4.09</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#076b80"></span><span class="sw__hex">#076b80</span><span class="sw__role">actif</span><span class="b b--ok">6.13</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#e1f4fb"></span><span class="sw__hex">#e1f4fb</span><span class="sw__role">aplat turquoise</span><span class="b b--deco">décor</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#f7a23b"></span><span class="sw__hex">#f7a23b</span><span class="sw__role">orange</span><span class="b b--no">2.06</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#e5851c"></span><span class="sw__hex">#e5851c</span><span class="sw__role">accents / CTA</span><span class="b b--no">2.73</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#fdf0e0"></span><span class="sw__hex">#fdf0e0</span><span class="sw__role">aplat orange</span><span class="b b--deco">décor</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#d8eceb"></span><span class="sw__hex">#d8eceb</span><span class="sw__role">bordures</span><span class="b b--no">1.23</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#f4fbfb"></span><span class="sw__hex">#f4fbfb</span><span class="sw__role">fond teinté</span><span class="b b--no">1.05</span></div>
+          </div>
+          <p class="verdict verdict--no"><strong>Ce qui ne va pas.</strong> Ce n'est pas la teinte qui pèche, c'est le <em>couple</em> et le <em>dosage</em>. Turquoise saturé + orange saturé = duo complémentaire à haute énergie : ça « crie » et ça vieillit vite (on le lit « club de sport / centre de loisirs » plus que « praticienne du mouvement »). Les deux couleurs sont à pleine saturation et à parts égales : aucune ne domine, l'œil ne sait pas où se poser. Les deux teintes sont en outre <strong>trop claires pour du texte</strong> (2,73:1 et 4,09:1), ce qui les rend à la fois illisibles et un peu « délavées » à l'écran.</p>
+      <p class="verdict"><strong>Ce qui va.</strong> L'idée d'un duo froid/chaud est juste, et le turquoise raconte bien l'eau, la respiration, le soin. On peut garder l'ADN en le « mûrissant » (voir B).</p>
+        </div>
+        <div class="pal__col">
+        <div class="mock">
+          <div class="mock-band">
+            <span class="mock-band__kicker">Rentrée 2026-2027</span>
+            <h4 class="mock-band__title">Méthode Feldenkrais</h4>
+            <p class="mock-band__sub">Violaine Briand — Rennes &amp; Guipry-Messac</p>
+          </div>
+          <nav class="mock-nav">
+            <span class="pill pill--on">Informations</span><span class="pill">Cours</span><span class="pill">La méthode</span><span class="pill">Contact</span>
+          </nav>
+          <h5 class="mock-h">Reprise des cours collectifs</h5>
+          <p class="mock-lead">Cours le mardi et le jeudi, à Rennes et à Guipry-Messac. Premier cours offert.</p>
+          <div class="mock-soft">
+            <span class="mock-soft__t">Prochaines dates</span>
+            <div class="ev"><span class="ev__d">14 sept. 2026</span><span class="ev__l">Reprise des cours collectifs</span></div>
+            <div class="ev"><span class="ev__d">10 oct. 2026</span><span class="ev__l">Workshop : la marche légère</span></div>
+            <div class="ev"><span class="ev__d">28-29 nov. 2026</span><span class="ev__l">Stage : le renforcement musculaire</span></div>
+          </div>
+          <div class="mock-card">
+            <h6 class="mock-card__t">Cours collectifs</h6>
+            <p class="mock-p">Séances d'une heure, en petits groupes. <strong>18 €</strong> le cours, <strong>358 €</strong> l'année.</p>
+            <div class="btns">
+              <span class="btn btn--primary">Réserver</span>
+              <span class="btn">Horaires &amp; tarifs</span>
+              <span class="btn btn--pay">Payer en ligne</span>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pal" data-pal="A">
+      <header class="pal__head">
+        <h3 class="pal__name">A — Sauge &amp; terracotta</h3>
+        <p class="pal__tag">Vert sauge #3F6B5F + terre cuite #B0552E, sur fond lin</p>
+      </header>
+      <div class="pal__grid">
+        <div class="pal__col">
+          <div class="swatches">
+            <div class="sw"><span class="sw__chip" style="background:#22322E"></span><span class="sw__hex">#22322E</span><span class="sw__role">titres</span><span class="b b--ok">13.43</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#4A5A54"></span><span class="sw__hex">#4A5A54</span><span class="sw__role">corps de texte</span><span class="b b--ok">7.29</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#5C6D68"></span><span class="sw__hex">#5C6D68</span><span class="sw__role">secondaire</span><span class="b b--ok">5.47</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#3F6B5F"></span><span class="sw__hex">#3F6B5F</span><span class="sw__role">sauge</span><span class="b b--ok">6.04</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#2F5449"></span><span class="sw__hex">#2F5449</span><span class="sw__role">liens / survol</span><span class="b b--ok">8.45</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#28473D"></span><span class="sw__hex">#28473D</span><span class="sw__role">bouton plein</span><span class="b b--ok">10.20</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#E8EFEA"></span><span class="sw__hex">#E8EFEA</span><span class="sw__role">aplat sauge</span><span class="b b--deco">décor</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#B0552E"></span><span class="sw__hex">#B0552E</span><span class="sw__role">terre cuite</span><span class="b b--ok">5.02</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#9E4B26"></span><span class="sw__hex">#9E4B26</span><span class="sw__role">accents / CTA</span><span class="b b--ok">6.02</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#F8EDE5"></span><span class="sw__hex">#F8EDE5</span><span class="sw__role">aplat terre cuite</span><span class="b b--deco">décor</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#E3E5DB"></span><span class="sw__hex">#E3E5DB</span><span class="sw__role">bordures</span><span class="b b--no">1.27</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#F6F4EE"></span><span class="sw__hex">#F6F4EE</span><span class="sw__role">fond lin</span><span class="b b--no">1.06</span></div>
+          </div>
+          <p class="verdict verdict--yes"><strong>Mon choix.</strong> Le duo le plus juste pour du Feldenkrais : le sauge évoque le végétal, le calme, le soin ; la terre cuite apporte la chaleur humaine et la matière — deux couleurs <em>de la nature</em>, désaturées, donc apaisantes. Avec le fond lin (#F6F4EE) à la place du blanc pur, on obtient une sensation « papier / atelier » qui vieillit très bien et qui mettra particulièrement bien en valeur les photos de séances. C'est aussi la palette la plus distinctive face à la concurrence locale (qui est très bleu/orange).</p>
+      <p><strong>Risque :</strong> un peu moins « médical » que le turquoise. À compenser par des photos soignées et une typographie nette.</p>
+        </div>
+        <div class="pal__col">
+        <div class="mock">
+          <div class="mock-band">
+            <span class="mock-band__kicker">Rentrée 2026-2027</span>
+            <h4 class="mock-band__title">Méthode Feldenkrais</h4>
+            <p class="mock-band__sub">Violaine Briand — Rennes &amp; Guipry-Messac</p>
+          </div>
+          <nav class="mock-nav">
+            <span class="pill pill--on">Informations</span><span class="pill">Cours</span><span class="pill">La méthode</span><span class="pill">Contact</span>
+          </nav>
+          <h5 class="mock-h">Reprise des cours collectifs</h5>
+          <p class="mock-lead">Cours le mardi et le jeudi, à Rennes et à Guipry-Messac. Premier cours offert.</p>
+          <div class="mock-soft">
+            <span class="mock-soft__t">Prochaines dates</span>
+            <div class="ev"><span class="ev__d">14 sept. 2026</span><span class="ev__l">Reprise des cours collectifs</span></div>
+            <div class="ev"><span class="ev__d">10 oct. 2026</span><span class="ev__l">Workshop : la marche légère</span></div>
+            <div class="ev"><span class="ev__d">28-29 nov. 2026</span><span class="ev__l">Stage : le renforcement musculaire</span></div>
+          </div>
+          <div class="mock-card">
+            <h6 class="mock-card__t">Cours collectifs</h6>
+            <p class="mock-p">Séances d'une heure, en petits groupes. <strong>18 €</strong> le cours, <strong>358 €</strong> l'année.</p>
+            <div class="btns">
+              <span class="btn btn--primary">Réserver</span>
+              <span class="btn">Horaires &amp; tarifs</span>
+              <span class="btn btn--pay">Payer en ligne</span>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pal" data-pal="B">
+      <header class="pal__head">
+        <h3 class="pal__name">B — Bleu canard &amp; ocre</h3>
+        <p class="pal__tag">Bleu canard #12555F + ocre #A2652C, sur fond lin</p>
+      </header>
+      <div class="pal__grid">
+        <div class="pal__col">
+          <div class="swatches">
+            <div class="sw"><span class="sw__chip" style="background:#12333A"></span><span class="sw__hex">#12333A</span><span class="sw__role">titres</span><span class="b b--ok">13.46</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#4D6166"></span><span class="sw__hex">#4D6166</span><span class="sw__role">corps de texte</span><span class="b b--ok">6.53</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#586C70"></span><span class="sw__hex">#586C70</span><span class="sw__role">secondaire</span><span class="b b--ok">5.54</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#12555F"></span><span class="sw__hex">#12555F</span><span class="sw__role">bleu canard</span><span class="b b--ok">8.43</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#0E4650"></span><span class="sw__hex">#0E4650</span><span class="sw__role">liens / survol</span><span class="b b--ok">10.44</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#0A3A43"></span><span class="sw__hex">#0A3A43</span><span class="sw__role">bouton plein</span><span class="b b--ok">12.36</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#E6EDED"></span><span class="sw__hex">#E6EDED</span><span class="sw__role">aplat canard</span><span class="b b--deco">décor</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#A2652C"></span><span class="sw__hex">#A2652C</span><span class="sw__role">ocre</span><span class="b b--ok">4.74</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#976028"></span><span class="sw__hex">#976028</span><span class="sw__role">accents / CTA</span><span class="b b--ok">5.22</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#F7EEDF"></span><span class="sw__hex">#F7EEDF</span><span class="sw__role">aplat ocre</span><span class="b b--deco">décor</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#DDE5E3"></span><span class="sw__hex">#DDE5E3</span><span class="sw__role">bordures</span><span class="b b--no">1.28</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#F5F6F2"></span><span class="sw__hex">#F5F6F2</span><span class="sw__role">fond lin</span><span class="b b--no">1.05</span></div>
+          </div>
+          <p class="verdict verdict--yes"><strong>La voie de la continuité.</strong> On garde le turquoise de la marque, mais on le descend en bleu canard profond : même famille, dix ans de moins, et une vraie tenue en grand aplat. L'orange candy devient un ocre/cuivre — toujours chaud, mais noble au lieu de sucré. C'est l'option la moins dépaysante si Violaine tient à son turquoise.</p>
+      <p><strong>Risque :</strong> le bleu canard est aujourd'hui très utilisé par les sites bien-être ; un peu moins singulier que A.</p>
+        </div>
+        <div class="pal__col">
+        <div class="mock">
+          <div class="mock-band">
+            <span class="mock-band__kicker">Rentrée 2026-2027</span>
+            <h4 class="mock-band__title">Méthode Feldenkrais</h4>
+            <p class="mock-band__sub">Violaine Briand — Rennes &amp; Guipry-Messac</p>
+          </div>
+          <nav class="mock-nav">
+            <span class="pill pill--on">Informations</span><span class="pill">Cours</span><span class="pill">La méthode</span><span class="pill">Contact</span>
+          </nav>
+          <h5 class="mock-h">Reprise des cours collectifs</h5>
+          <p class="mock-lead">Cours le mardi et le jeudi, à Rennes et à Guipry-Messac. Premier cours offert.</p>
+          <div class="mock-soft">
+            <span class="mock-soft__t">Prochaines dates</span>
+            <div class="ev"><span class="ev__d">14 sept. 2026</span><span class="ev__l">Reprise des cours collectifs</span></div>
+            <div class="ev"><span class="ev__d">10 oct. 2026</span><span class="ev__l">Workshop : la marche légère</span></div>
+            <div class="ev"><span class="ev__d">28-29 nov. 2026</span><span class="ev__l">Stage : le renforcement musculaire</span></div>
+          </div>
+          <div class="mock-card">
+            <h6 class="mock-card__t">Cours collectifs</h6>
+            <p class="mock-p">Séances d'une heure, en petits groupes. <strong>18 €</strong> le cours, <strong>358 €</strong> l'année.</p>
+            <div class="btns">
+              <span class="btn btn--primary">Réserver</span>
+              <span class="btn">Horaires &amp; tarifs</span>
+              <span class="btn btn--pay">Payer en ligne</span>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pal" data-pal="C">
+      <header class="pal__head">
+        <h3 class="pal__name">C — Encre &amp; cuivre</h3>
+        <p class="pal__tag">Vert encre #1B3A3C + cuivre #A56735, très peu de couleur</p>
+      </header>
+      <div class="pal__grid">
+        <div class="pal__col">
+          <div class="swatches">
+            <div class="sw"><span class="sw__chip" style="background:#16292B"></span><span class="sw__hex">#16292B</span><span class="sw__role">titres</span><span class="b b--ok">15.15</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#4B5C5E"></span><span class="sw__hex">#4B5C5E</span><span class="sw__role">corps de texte</span><span class="b b--ok">7.02</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#5D6D6F"></span><span class="sw__hex">#5D6D6F</span><span class="sw__role">secondaire</span><span class="b b--ok">5.41</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#1B3A3C"></span><span class="sw__hex">#1B3A3C</span><span class="sw__role">vert encre</span><span class="b b--ok">12.23</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#132C2E"></span><span class="sw__hex">#132C2E</span><span class="sw__role">liens / survol</span><span class="b b--ok">14.71</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#0E2426"></span><span class="sw__hex">#0E2426</span><span class="sw__role">bouton plein</span><span class="b b--ok">16.17</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#E8EDEC"></span><span class="sw__hex">#E8EDEC</span><span class="sw__role">aplat encre</span><span class="b b--deco">décor</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#A56735"></span><span class="sw__hex">#A56735</span><span class="sw__role">cuivre</span><span class="b b--ok">4.57</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#9A5F2F"></span><span class="sw__hex">#9A5F2F</span><span class="sw__role">accents / CTA</span><span class="b b--ok">5.18</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#F7EEE2"></span><span class="sw__hex">#F7EEE2</span><span class="sw__role">aplat cuivre</span><span class="b b--deco">décor</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#E4E3DC"></span><span class="sw__hex">#E4E3DC</span><span class="sw__role">bordures</span><span class="b b--no">1.29</span></div>
+            <div class="sw"><span class="sw__chip" style="background:#FAF8F3"></span><span class="sw__hex">#FAF8F3</span><span class="sw__role">fond crème</span><span class="b b--no">1.04</span></div>
+          </div>
+          <p class="verdict"><strong>La voie sobre.</strong> Presque pas de couleur : un vert encre très foncé pour les titres et les aplats ponctuels, du blanc cassé partout ailleurs, et une seule touche de cuivre pour les CTA. La hiérarchie est alors portée par la typographie et les espaces, pas par la couleur. Très élégant, très « cabinet ».</p>
+      <p><strong>Risque :</strong> sans photos de qualité, l'ensemble peut paraître austère, voire froid — et la couleur ne raconte plus rien de la méthode.</p>
+        </div>
+        <div class="pal__col">
+        <div class="mock">
+          <div class="mock-band">
+            <span class="mock-band__kicker">Rentrée 2026-2027</span>
+            <h4 class="mock-band__title">Méthode Feldenkrais</h4>
+            <p class="mock-band__sub">Violaine Briand — Rennes &amp; Guipry-Messac</p>
+          </div>
+          <nav class="mock-nav">
+            <span class="pill pill--on">Informations</span><span class="pill">Cours</span><span class="pill">La méthode</span><span class="pill">Contact</span>
+          </nav>
+          <h5 class="mock-h">Reprise des cours collectifs</h5>
+          <p class="mock-lead">Cours le mardi et le jeudi, à Rennes et à Guipry-Messac. Premier cours offert.</p>
+          <div class="mock-soft">
+            <span class="mock-soft__t">Prochaines dates</span>
+            <div class="ev"><span class="ev__d">14 sept. 2026</span><span class="ev__l">Reprise des cours collectifs</span></div>
+            <div class="ev"><span class="ev__d">10 oct. 2026</span><span class="ev__l">Workshop : la marche légère</span></div>
+            <div class="ev"><span class="ev__d">28-29 nov. 2026</span><span class="ev__l">Stage : le renforcement musculaire</span></div>
+          </div>
+          <div class="mock-card">
+            <h6 class="mock-card__t">Cours collectifs</h6>
+            <p class="mock-p">Séances d'une heure, en petits groupes. <strong>18 €</strong> le cours, <strong>358 €</strong> l'année.</p>
+            <div class="btns">
+              <span class="btn btn--primary">Réserver</span>
+              <span class="btn">Horaires &amp; tarifs</span>
+              <span class="btn btn--pay">Payer en ligne</span>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+  <div class="rule">
+    <h2>La règle qui change tout : le dosage, pas la teinte</h2>
+    <p>Dans les trois propositions, l'effet vient surtout de la répartition :</p>
+    <ul>
+      <li><strong>60 % de neutre</strong> — blanc cassé / lin (#F6F4EE) au lieu du blanc pur, pour une impression de papier plutôt que d'écran.</li>
+      <li><strong>30 % de couleur dominante</strong> — un seul « vert » (sauge, canard ou encre) pour les surfaces, les titres et les CTA.</li>
+      <li><strong>10 % d'accent</strong> — la terre cuite / l'ocre / le cuivre, réservée aux prix, aux dates et aux boutons de paiement. Rien d'autre.</li>
+      <li><strong>Zéro dégradé arc-en-ciel.</strong> Le site actuel répète le même dégradé turquoise→orange à six endroits (filet du titre de page, soulignement des titres de carte, trait de séparation, trait du menu, survol, <code>hr</code>). Un seul filet de couleur serait plus fort que six.</li>
+      <li><strong>Deux blobs flous suffisent</strong> dans l'en-tête (il y en a deux + deux dégradés de fond : la couleur devient un brouillard).</li>
+    </ul>
+  </div>
+
+  <footer>Page de travail — comparatif de couleurs produit lors de l'audit de design. Non indexée, non liée depuis le site.</footer>
+</div>
+</body>
+</html>
