@@ -49,12 +49,12 @@
   --bg:      #ffffff;
   --bg-soft: #f4fbfb;
 
-  --font-body:    'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body:    'Benefits', 'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-display: 'Benefits', 'Quicksand', Georgia, serif;
-  --font-heading: 'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-subhead: 'Radiogram', 'Quicksand', Georgia, serif;
-  --font-nav:     'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-accent:  'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-heading: 'Benefits', 'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-subhead: 'Radiogram', 'Benefits', Georgia, serif;
+  --font-nav:     'Benefits', 'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-accent:  'Benefits', 'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   --space-xs: 0.5rem;
   --space-sm: 1rem;
