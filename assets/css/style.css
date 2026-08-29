@@ -419,9 +419,23 @@ strong { color: var(--ink); }
 .info-list li { border-bottom: 1px dashed var(--border); padding: 0.45rem 0; }
 .info-list li:last-child { border-bottom: none; }
 
-/* ---- Liste de boutons de paiement ---- */
-.pay-list { list-style: none; padding: 0; margin: 0.25rem 0 0; display: grid; gap: 0.6rem; }
-.pay-list .button { display: block; text-align: center; }
+/* ---- Boutons de paiement ---- */
+.pay-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+a.button[href*="buy.stripe.com"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-radius: 4px;
+}
+.pay-icon { width: 1.15em; height: 1.15em; flex: none; }
 
 /* ---- Bloc rentrée / événements ---- */
 .rentree {
@@ -497,6 +511,10 @@ figcaption {
 .accent { color: var(--orange-dark); }
 .highlight { color: var(--teal-dark); }
 .lead { font-size: 1.1rem; }
+
+/* ---- Polices spécifiques par page ---- */
+body.blog .page-title { font-family: var(--font-subhead); font-weight: 400; }
+.stage-title, .heading-benefits { font-family: var(--font-display); font-weight: 400; }
 
 /* ---- Footer ---- */
 .site-footer {
