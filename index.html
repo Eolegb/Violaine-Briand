@@ -15,6 +15,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0ca5c4">
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/Benefits.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/Radiogram-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="assets/js/main.js" defer></script>
   <script type="application/ld+json">
@@ -37,8 +39,8 @@
   }
   </script>
 </head>
-<body class="home">
-  <div id="page" class="site">
+<body>
+  <div id="page">
     <a class="skip-link" href="#main">Aller au contenu</a>
 
     <header id="masthead" class="site-header">
@@ -47,6 +49,7 @@
           <span class="site-title">Méthode Feldenkrais</span>
         </a>
         <p class="site-description">Violaine Briand — Rennes &amp; Guipry-Messac</p>
+        <p class="header-contact"><a href="tel:+33619260776">06 19 26 07 76</a></p>
       </div>
 
       <nav id="site-navigation" class="main-navigation" aria-label="Navigation principale">
@@ -66,7 +69,7 @@
     </header>
 
     <main id="main" class="site-content">
-      <h1 class="page-title page-title--sm">Informations pratiques</h1>
+      <h1 class="page-title">Informations pratiques</h1>
       <p class="page-intro lead">Cours collectifs de Prise de Conscience par le Mouvement, leçons individuelles d'Intégration Fonctionnelle, workshops et stages, à Rennes et à Guipry-Messac.</p>
 
       <!-- Rentrée 2026-2027 -->
@@ -77,13 +80,13 @@
           <li><a href="stage.html"><span class="event-date">10 oct. 2026</span> Reprise des workshops du samedi</a></li>
           <li><a href="stage.html"><span class="event-date">28-29 nov. 2026</span> Premier stage week-end : le renforcement musculaire selon la méthode Feldenkrais</a></li>
         </ul>
-        <p><a class="button" href="stage.html">Toutes les infos de la rentrée</a></p>
+        <p><a class="button button--primary" href="stage.html">Toutes les infos de la rentrée</a></p>
       </section>
 
       <div class="panel-grid home-grid">
 
-        <!-- Bloc 1 : présentation (ancienne colonne centrale) -->
-        <section class="home-col-center card" aria-labelledby="titre-violaine">
+        <!-- Bloc 1 : présentation -->
+        <section class="card" aria-labelledby="titre-violaine">
           <h2 class="widget-title" id="titre-violaine">Violaine Briand</h2>
           <p>Formée à la méthode Feldenkrais depuis 2012 à Paris, Violaine Briand fait partie de l'association Feldenkrais France et propose à Rennes des Intégrations Fonctionnelles et des cours collectifs de Prise de Conscience par le Mouvement.</p>
           <p>Elle enseigne la méthode Feldenkrais en cabinet à Rennes et à Guipry-Messac à toutes personnes, enfants et adultes, souhaitant une plus grande cohérence dans ses mouvements et postures corporelles.</p>
@@ -93,14 +96,14 @@
             <img src="assets/images/cours-collectif-photo.jpg" alt="Cours collectif de méthode Feldenkrais à Rennes" width="1200" height="480" fetchpriority="high" decoding="async">
           </picture>
 
-          <p style="margin-top: var(--space-md);">
+          <p class="mt-md">
             <a class="button" href="methode.html">La méthode &amp; son fondateur</a>
             <a class="button" href="contact.html">Contact</a>
           </p>
         </section>
 
-        <!-- Bloc 2 : cours collectifs (ancienne colonne gauche) -->
-        <section class="home-col-left card" aria-labelledby="titre-cours">
+        <!-- Bloc 2 : cours collectifs -->
+        <section class="card" aria-labelledby="titre-cours">
           <h2 class="widget-title" id="titre-cours">Cours collectifs</h2>
           <p><strong class="accent">Reprise le mardi 14 septembre 2026.</strong> Cours le mardi et le jeudi, à Rennes et Guipry-Messac. Premier cours offert.</p>
           <p><a class="button" href="stage.html">Horaires &amp; tarifs</a></p>
@@ -114,8 +117,8 @@
           </ul>
         </section>
 
-        <!-- Bloc 3 : workshops & stages (ancienne colonne droite) -->
-        <section class="home-col-right card card-soft" aria-labelledby="titre-workshops">
+        <!-- Bloc 3 : workshops & stages -->
+        <section class="card card-soft" aria-labelledby="titre-workshops">
           <h2 class="widget-title" id="titre-workshops">Workshops &amp; stages</h2>
           <p>Workshops le samedi (55 €) et stages week-ends (230 €), tout au long de l'année, en présentiel, par zoom ou en enregistrement audio.</p>
           <ul class="pay-list">

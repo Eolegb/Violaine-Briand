@@ -13,7 +13,7 @@
 
   /* Révélation au scroll */
   var targets = document.querySelectorAll(
-    '.card, .post, .post-featured, figure, .site-branding, .main-navigation, .page-title, .page-intro, .entry-header'
+    '.card, .post, figure, .site-branding, .main-navigation, .page-title, .page-intro, .entry-header'
   );
 
   if ('IntersectionObserver' in window) {
