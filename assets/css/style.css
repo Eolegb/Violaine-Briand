@@ -514,8 +514,33 @@ figcaption {
 
 /* ---- Polices spécifiques par page ---- */
 body.blog .page-title { font-family: var(--font-subhead); font-weight: 400; }
-.stage-title { font-family: var(--font-display); font-weight: 400; }
 .heading-benefits { font-family: var(--font-display); font-weight: 400; font-size: 1.4rem; }
+
+/* ---- Stage dépliable (accordéon) ---- */
+.stage-details { margin: 0.5rem 0 1rem; }
+.stage-details summary {
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.stage-details summary::-webkit-details-marker { display: none; }
+.stage-details summary::before {
+  content: "+";
+  display: inline-block;
+  margin-right: 0.6rem;
+  font-weight: 700;
+  color: var(--orange-dark);
+}
+.stage-details[open] summary::before { content: "–"; }
+.stage-details-body {
+  margin-top: 0.75rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--teal-soft);
+}
 
 /* ---- Footer ---- */
 .site-footer {
