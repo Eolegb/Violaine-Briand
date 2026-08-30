@@ -15,15 +15,6 @@
      --font-accent  : libellés, métadonnées, boutons
    ---------------------------------------------------------- */
 @font-face {
-  font-family: 'Radiogram';
-  src: url('../fonts/Radiogram-Regular.woff2') format('woff2'),
-       url('../fonts/Radiogram-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'Benefits';
   src: url('../fonts/Benefits.woff2') format('woff2'),
        url('../fonts/Benefits.ttf') format('truetype');
@@ -33,26 +24,27 @@
 }
 
 :root {
-  --teal:        #0ca5c4;
-  --teal-dark:   #07758b;
-  --teal-deep:   #066276;
-  --teal-soft:   #e1f4fb;
-  --orange:      #f7a23b;
-  --orange-dark: #a85508;
-  --orange-soft: #fdf0e0;
+  --teal:        #3d8c86;
+  --teal-dark:   #1f6e6a;
+  --teal-deep:   #144f4d;
+  --teal-soft:   #e3efeb;
+  --orange:      #d98e6a;
+  --orange-dark: #ad4f2e;
+  --orange-soft: #f7e7db;
 
-  --ink:   #14363b;
-  --text:  #51696c;
-  --muted: #5f7174;
-  --border:#d8eceb;
+  --ink:   #233c40;
+  --text:  #4a6266;
+  --muted: #5f7377;
+  --border:#d3e0dd;
 
   --bg:      #ffffff;
-  --bg-soft: #f4fbfb;
+  --bg-page: #fbf9f4;
+  --bg-soft: #eef3ef;
 
   --font-body:    'Benefits', 'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-display: 'Benefits', 'Quicksand', Georgia, serif;
   --font-heading: 'Benefits', 'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-subhead: 'Radiogram', 'Benefits', Georgia, serif;
+  --font-subhead: 'Benefits', 'Quicksand', Georgia, serif;
   --font-nav:     'Benefits', 'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-accent:  'Benefits', 'Quicksand', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
@@ -72,9 +64,9 @@
   --space-xl: 4rem;
 
   --radius: 18px;
-  --shadow:       0 18px 44px rgba(12, 165, 196, 0.14);
-  --shadow-hover: 0 26px 60px rgba(12, 165, 196, 0.22);
-  --shadow-orange:0 18px 44px rgba(247, 162, 59, 0.24);
+  --shadow:       0 18px 44px rgba(35, 60, 64, 0.14);
+  --shadow-hover: 0 26px 60px rgba(35, 60, 64, 0.20);
+  --shadow-orange:0 18px 44px rgba(173, 79, 46, 0.20);
 }
 
 /* ---- Reset ---- */
@@ -88,7 +80,7 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background: var(--bg-page);
   color: var(--text);
   font-family: var(--font-body);
   font-size: var(--fs-body);
@@ -100,7 +92,7 @@ body {
     radial-gradient(1100px 520px at -10% -10%, var(--teal-soft), transparent 60%);
 }
 
-::selection { background: var(--teal); color: #fff; }
+::selection { background: var(--teal-deep); color: #fff; }
 
 a { color: var(--teal-dark); text-decoration: none; transition: color 0.25s ease; }
 a:hover, a:focus-visible { color: var(--orange-dark); }
@@ -122,9 +114,9 @@ h1, h2, h3, h4 {
   text-rendering: optimizeLegibility;
 }
 h1 { font-family: var(--font-heading); font-size: var(--fs-h1); }
-h2 { font-family: var(--font-subhead); font-weight: 400; font-size: var(--fs-h2); }
-h3 { font-family: var(--font-subhead); font-weight: 400; font-size: var(--fs-h3); }
-h4 { font-family: var(--font-subhead); font-weight: 400; font-size: var(--fs-h4); }
+h2 { font-family: var(--font-subhead); font-weight: 700; font-size: var(--fs-h2); }
+h3 { font-family: var(--font-subhead); font-weight: 600; font-size: var(--fs-h3); }
+h4 { font-family: var(--font-subhead); font-weight: 600; font-size: var(--fs-h4); }
 
 p, ul, ol { margin-bottom: var(--space-sm); }
 ul, ol { padding-left: 1.25rem; }
@@ -159,7 +151,7 @@ strong { color: var(--ink); }
   border-bottom: 1px solid var(--border);
   margin-bottom: var(--space-lg);
   padding: 0.9rem 0 1rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(227, 239, 235, 0.88) 100%);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -193,7 +185,7 @@ strong { color: var(--ink); }
   color: var(--ink);
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 1.3rem + 2.2vw, 2.7rem);
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
   transition: color 0.3s ease;
@@ -208,12 +200,6 @@ strong { color: var(--ink); }
   margin-top: 0.2rem;
   color: var(--muted);
 }
-.header-contact {
-  margin-top: 0.35rem;
-  font-family: var(--font-accent);
-  font-size: 0.95rem;
-}
-.header-contact a { font-weight: 600; }
 
 /* ---- Navigation ---- */
 .main-navigation { font-family: var(--font-nav); font-size: 0.95rem; }
@@ -335,7 +321,6 @@ strong { color: var(--ink); }
 .widget-title {
   color: var(--ink);
   font-family: var(--font-subhead);
-  font-weight: 400;
   font-size: var(--fs-h2);
   margin-bottom: var(--space-sm);
   padding-bottom: 0.5rem;
@@ -387,7 +372,7 @@ strong { color: var(--ink); }
 }
 .post:last-of-type { border-bottom: none; }
 .entry-header { margin-bottom: var(--space-sm); }
-.entry-title { font-family: var(--font-subhead); font-weight: 400; font-size: 1.5rem; margin-bottom: 0.25rem; }
+.entry-title { font-family: var(--font-subhead); font-weight: 600; font-size: 1.5rem; margin-bottom: 0.25rem; }
 .entry-meta {
   align-items: center;
   color: var(--muted);
@@ -528,7 +513,7 @@ figcaption {
 .m-0   { margin: 0; }
 
 /* ---- Polices spécifiques par page ---- */
-body.blog .page-title { font-family: var(--font-subhead); font-weight: 400; }
+body.blog .page-title { font-family: var(--font-subhead); font-weight: 600; }
 
 /* ---- Stage dépliable (accordéon) ---- */
 .stage-details { margin: 0.5rem 0 1rem; }
@@ -536,7 +521,7 @@ body.blog .page-title { font-family: var(--font-subhead); font-weight: 400; }
   list-style: none;
   cursor: pointer;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 600;
   font-size: 1.4rem;
   line-height: 1.3;
   color: var(--ink);
