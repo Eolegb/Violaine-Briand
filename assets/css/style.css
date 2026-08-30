@@ -151,9 +151,7 @@ strong { color: var(--ink); }
   border-bottom: 1px solid var(--border);
   margin-bottom: var(--space-lg);
   padding: 0.9rem 0 1rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(226, 236, 238, 0.88) 100%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, #ffffff 0%, #e2ecee 100%);
 }
 .site-header::before,
 .site-header::after {
@@ -225,6 +223,7 @@ strong { color: var(--ink); }
 }
 .main-navigation .menu-toggle .menu-toggle-icon {
   display: inline-block;
+  position: relative;
   width: 1.1em;
   border-top: 2px solid currentColor;
   border-bottom: 6px double currentColor;
@@ -563,6 +562,11 @@ body.blog .page-title { font-family: var(--font-subhead); font-weight: 600; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 @keyframes drift {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50%      { transform: translate(26px, 34px) scale(1.1); }
@@ -573,7 +577,7 @@ body.blog .page-title { font-family: var(--font-subhead); font-weight: 600; }
   to   { transform: scaleX(1); }
 }
 
-.site-header  { animation: fadeUp 0.8s ease both; }
+.site-header  { animation: fadeIn 0.8s ease both; }
 .site-content { animation: fadeUp 0.8s 0.15s ease both; }
 .site-footer  { animation: fadeUp 0.8s 0.3s ease both; }
 
@@ -599,12 +603,67 @@ body.blog .page-title { font-family: var(--font-subhead); font-weight: 600; }
 @media (max-width: 48rem) {
   .panel-grid { grid-template-columns: 1fr !important; gap: var(--space-md); }
 
-  .main-navigation .menu-toggle { display: flex; }
-  .main-navigation .menu { display: none; }
-  .main-navigation .menu.toggled { display: block; margin-top: var(--space-xs); }
-  .main-navigation ul { flex-direction: column; gap: 0; }
-  .main-navigation a { border-bottom: 1px solid var(--border); border-radius: 0; padding: 0.75rem 0.5rem; }
+  body.menu-open { overflow: hidden; }
+
+  .main-navigation .menu-toggle {
+    display: flex;
+    position: relative;
+    z-index: 301;
+  }
+
+  .main-navigation .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(180deg, var(--bg-page) 0%, var(--teal-soft) 100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .main-navigation .menu.toggled {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .main-navigation ul {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 20rem;
+    text-align: center;
+  }
+  .main-navigation li { width: 100%; }
+  .main-navigation a {
+    font-size: 1.25rem;
+    padding: 0.7rem 1.2rem;
+    border-bottom: none;
+  }
   .main-navigation a::after { display: none; }
+
+  .main-navigation .menu-toggle[aria-expanded="true"] .menu-toggle-icon {
+    border-top: none;
+    border-bottom: none;
+    width: 1.15em;
+    height: 1.15em;
+  }
+  .main-navigation .menu-toggle[aria-expanded="true"] .menu-toggle-icon::before,
+  .main-navigation .menu-toggle[aria-expanded="true"] .menu-toggle-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+  }
+  .main-navigation .menu-toggle[aria-expanded="true"] .menu-toggle-icon::before { transform: rotate(45deg); }
+  .main-navigation .menu-toggle[aria-expanded="true"] .menu-toggle-icon::after { transform: rotate(-45deg); }
 
   .schedule li { grid-template-columns: 1fr; }
 }

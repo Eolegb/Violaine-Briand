@@ -1,19 +1,39 @@
 (function () {
   'use strict';
 
-  /* Menu mobile (avec gestion aria-expanded) */
+  /* Menu mobile plein écran */
   var toggle = document.querySelector('.menu-toggle');
   var menu = document.querySelector('.main-navigation .menu');
+  var label = toggle ? toggle.querySelector('.menu-toggle-label') : null;
+
+  function setMenu(opened) {
+    if (!toggle || !menu) { return; }
+    menu.classList.toggle('toggled', opened);
+    toggle.setAttribute('aria-expanded', String(opened));
+    if (label) { label.textContent = opened ? 'Fermer' : 'Menu'; }
+    document.body.classList.toggle('menu-open', opened);
+  }
+
   if (toggle && menu) {
     toggle.addEventListener('click', function () {
-      var opened = menu.classList.toggle('toggled');
-      toggle.setAttribute('aria-expanded', String(opened));
+      setMenu(!menu.classList.contains('toggled'));
+    });
+
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) { setMenu(false); }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('toggled')) {
+        setMenu(false);
+        toggle.focus();
+      }
     });
   }
 
   /* Révélation au scroll */
   var targets = document.querySelectorAll(
-    '.card, .post, figure, .site-branding, .main-navigation, .page-title, .page-intro, .entry-header'
+    '.card, .post, figure, .page-title, .page-intro, .entry-header'
   );
 
   if ('IntersectionObserver' in window) {
