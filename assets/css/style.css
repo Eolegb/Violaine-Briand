@@ -203,34 +203,6 @@ strong { color: var(--ink); }
 /* ---- Navigation ---- */
 .main-navigation { font-family: var(--font-nav); font-size: 0.87rem; }
 
-.main-navigation .menu-toggle {
-  display: none;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0 auto;
-  background: transparent;
-  border: 1px solid rgba(18, 85, 95, 0.45);
-  border-radius: 10px;
-  color: var(--teal-dark);
-  cursor: pointer;
-  font: inherit;
-  font-weight: 600;
-  padding: 0.6rem 1.2rem;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-.main-navigation .menu-toggle:hover {
-  background: var(--teal-dark);
-  color: #fff;
-}
-.main-navigation .menu-toggle .menu-toggle-icon {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
-  border-top: 2px solid currentColor;
-  border-bottom: 6px double currentColor;
-  height: 0.75em;
-}
-
 .main-navigation ul {
   display: flex;
   flex-wrap: wrap;
@@ -273,10 +245,39 @@ strong { color: var(--ink); }
 }
 
 /* ---- Menu mobile ----
-   Overlay rattaché au <body> (construit en JS), masqué en desktop.
-   Il reste sous le header (z-index 90 < 100), ce qui garde le bouton
-   « Menu / Fermer » visible et cliquable par-dessus le panneau. */
+   Overlay plein écran rattaché au <body> (construit en JS), masqué en
+   desktop. L'ouverture repose sur `display` pour rester fiable sur les
+   Safari anciens. Le bouton flottant (FAB) est au-dessus de l'overlay. */
 .mobile-menu { display: none; }
+
+/* ---- Bouton flottant d'ouverture du menu (mobile uniquement) ---- */
+.menu-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  right: calc(1rem + env(safe-area-inset-right));
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  z-index: 310;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--teal-deep);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(13, 66, 73, 0.38);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.menu-fab:hover { background: var(--teal-dark); transform: translateY(-2px); }
+.menu-fab:focus-visible { outline: 3px solid var(--teal-deep); outline-offset: 3px; }
+.menu-fab svg { width: 26px; height: 26px; flex: none; }
+.menu-fab-icon--close { display: none; }
+.menu-fab.is-open .menu-fab-icon--open { display: none; }
+.menu-fab.is-open .menu-fab-icon--close { display: block; }
 
 /* ---- Skip link ---- */
 .skip-link {
@@ -678,6 +679,11 @@ body.blog .page-title { font-family: var(--font-subhead); font-weight: 600; }
   to   { transform: scaleX(1); }
 }
 
+@keyframes menuIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .site-header  { animation: fadeIn 0.8s ease both; }
 .site-content { animation: fadeUp 0.8s 0.15s ease both; }
 .site-footer  { animation: fadeUp 0.8s 0.3s ease both; }
@@ -706,50 +712,45 @@ body.blog .page-title { font-family: var(--font-subhead); font-weight: 600; }
 
   /* Verrou de défilement : on ne touche qu'à <html> pour ne pas casser
      la position sticky du header (WebKit la désactive si <body> devient
-     conteneur de défilement). Le blocage du fond sur iOS est complété
-     par un garde touchmove en JS. */
+     conteneur de défilement). Le fond est aussi bloqué par un garde
+     touchmove en JS. */
   html.menu-open { overflow: hidden; }
-
-  .main-navigation .menu-toggle {
-    display: flex;
-    position: relative;
-    z-index: 301;
-  }
 
   /* La nav horizontale du header est remplacée par l'overlay mobile
      (enfant de <body>, construit en JS) */
   .main-navigation .menu { display: none; }
 
+  /* Le bouton flottant est le seul déclencheur en mobile */
+  .menu-fab { display: inline-flex; }
+
+  /* Ouverture basée sur `display` : visible même sans transition CSS */
   .mobile-menu {
     position: fixed;
     inset: 0;
-    z-index: 90;
-    display: flex;
+    z-index: 300;
+    display: none;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     height: 100vh;
     height: 100dvh;
-    padding: calc(var(--header-h, 6.5rem) + env(safe-area-inset-top))
+    padding: 2.5rem 1.5rem 6.5rem 1.5rem;
+    padding: calc(2.5rem + env(safe-area-inset-top))
              calc(1.5rem + env(safe-area-inset-right))
-             calc(1.5rem + env(safe-area-inset-bottom))
+             calc(6.5rem + env(safe-area-inset-bottom))
              calc(1.5rem + env(safe-area-inset-left));
     background: linear-gradient(180deg, var(--bg-page) 0%, var(--teal-soft) 100%);
     overscroll-behavior: contain;
     overflow-y: auto;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-0.75rem);
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
   }
   .mobile-menu.toggled {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+    display: flex;
+    animation: menuIn 0.3s ease both;
   }
   .mobile-menu > nav {
     width: 100%;
     max-width: 22rem;
+    margin: auto 0;
   }
   .mobile-menu ul {
     display: flex;
@@ -774,26 +775,6 @@ body.blog .page-title { font-family: var(--font-subhead); font-weight: 600; }
   .mobile-menu a:hover,
   .mobile-menu a:focus-visible { background: var(--bg-soft); }
   .mobile-menu .current_page_item > a { background: var(--teal-soft); }
-
-  .main-navigation .menu-toggle[aria-expanded="true"] .menu-toggle-icon {
-    border-top: none;
-    border-bottom: none;
-    width: 1.15em;
-    height: 1.15em;
-  }
-  .main-navigation .menu-toggle[aria-expanded="true"] .menu-toggle-icon::before,
-  .main-navigation .menu-toggle[aria-expanded="true"] .menu-toggle-icon::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: currentColor;
-    border-radius: 2px;
-  }
-  .main-navigation .menu-toggle[aria-expanded="true"] .menu-toggle-icon::before { transform: rotate(45deg); }
-  .main-navigation .menu-toggle[aria-expanded="true"] .menu-toggle-icon::after { transform: rotate(-45deg); }
 
   /* Boutons : empilés pleine largeur pour une zone de tap confortable */
   .button-row {
@@ -833,7 +814,8 @@ body.blog .page-title { font-family: var(--font-subhead); font-weight: 600; }
 }
 
 @media print {
-  .main-navigation, .skip-link { display: none; }
+  .main-navigation, .skip-link, .menu-fab { display: none; }
+  .mobile-menu { display: none !important; }
   body { color: #000; font-size: 11pt; background: #fff; }
   .card { border: none; box-shadow: none; padding: 0; }
 }

@@ -2,30 +2,28 @@
   'use strict';
 
   /* ---- Menu mobile plein écran ----
-     L'overlay est construit en JS et rattaché directement à <body>.
-     Il ne doit jamais rester descendant du header (sticky + overflow:hidden
-     + animation), car WebKit rogne alors un enfant position:fixed
-     (bugs 160953 et 239418), ce qui empêchait le menu de s'afficher
-     sur iOS Safari. */
-  var toggle = document.querySelector('.menu-toggle');
-  var label = toggle ? toggle.querySelector('.menu-toggle-label') : null;
-  var header = document.querySelector('.site-header');
+     L'overlay et le bouton flottant (FAB) sont construits en JS et
+     rattachés directement à <body>. Ils ne doivent jamais rester
+     descendants du header (sticky + overflow:hidden + animation), car
+     WebKit rogne alors un enfant position:fixed (bugs 160953 et 239418).
+     L'ouverture de l'overlay repose sur `display`, pas seulement sur
+     opacity/visibility, pour rester fiable sur Safari ancien. */
   var sourceList = document.getElementById('primary-menu');
   var main = document.getElementById('main');
   var footer = document.querySelector('.site-footer');
+  var header = document.querySelector('.site-header');
+  var skipLink = document.querySelector('.skip-link');
   var supportsInert = 'inert' in HTMLElement.prototype;
   var overlay = null;
+  var fab = null;
+
+  var ICON_OPEN = '<svg class="menu-fab-icon menu-fab-icon--open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  var ICON_CLOSE = '<svg class="menu-fab-icon menu-fab-icon--close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 
   function focusOverlay() {
     if (!overlay || !overlay.classList.contains('toggled')) { return; }
     void overlay.offsetHeight;
     try { overlay.focus({ preventScroll: true }); } catch (e) { overlay.focus(); }
-  }
-
-  function syncHeaderHeight() {
-    if (header) {
-      document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
-    }
   }
 
   /* Bloque le défilement du fond sur iOS sans casser le header sticky.
@@ -43,34 +41,37 @@
     }
   }
 
+  function setInert(locked) {
+    if (!supportsInert) { return; }
+    if (main) { main.inert = locked; }
+    if (footer) { footer.inert = locked; }
+    if (header) { header.inert = locked; }
+    if (skipLink) { skipLink.inert = locked; }
+  }
+
   function setMenu(opened, returnFocus) {
-    if (!toggle || !overlay) { return; }
+    if (!overlay || !fab) { return; }
     overlay.classList.toggle('toggled', opened);
     overlay.setAttribute('aria-hidden', String(!opened));
-    toggle.setAttribute('aria-expanded', String(opened));
-    if (label) { label.textContent = opened ? 'Fermer' : 'Menu'; }
+    fab.classList.toggle('is-open', opened);
+    fab.setAttribute('aria-expanded', String(opened));
+    fab.setAttribute('aria-label', opened ? 'Fermer le menu' : 'Ouvrir le menu');
     document.documentElement.classList.toggle('menu-open', opened);
     lockScroll(opened);
-
-    /* Rend inerte le contenu de fond (le header reste actif pour le toggle). */
-    if (supportsInert) {
-      if (main) { main.inert = opened; }
-      if (footer) { footer.inert = opened; }
-    }
+    setInert(opened);
 
     if (opened) {
-      syncHeaderHeight();
       // Place le focus sur le panneau. Un second essai différé est
-      // nécessaire sur WebKit/iOS car la visibilité de l'overlay est
-      // encore en cours de transition au premier appel.
+      // nécessaire sur WebKit/iOS : l'overlay vient de passer en display:flex.
       focusOverlay();
       window.setTimeout(focusOverlay, 60);
-    } else if (returnFocus && toggle) {
-      toggle.focus();
+    } else if (returnFocus && fab) {
+      fab.focus();
     }
   }
 
-  if (toggle && sourceList) {
+  if (sourceList) {
+    /* Overlay (navigation clonée depuis le menu desktop) */
     overlay = document.createElement('div');
     overlay.className = 'mobile-menu';
     overlay.id = 'mobile-menu';
@@ -84,11 +85,20 @@
     list.removeAttribute('id');
     nav.appendChild(list);
     overlay.appendChild(nav);
+
+    /* Bouton flottant d'ouverture/fermeture */
+    fab = document.createElement('button');
+    fab.type = 'button';
+    fab.className = 'menu-fab';
+    fab.setAttribute('aria-controls', 'mobile-menu');
+    fab.setAttribute('aria-expanded', 'false');
+    fab.setAttribute('aria-label', 'Ouvrir le menu');
+    fab.innerHTML = ICON_OPEN + ICON_CLOSE;
+
+    document.body.appendChild(fab);
     document.body.appendChild(overlay);
 
-    toggle.setAttribute('aria-controls', 'mobile-menu');
-
-    toggle.addEventListener('click', function () {
+    fab.addEventListener('click', function () {
       setMenu(!overlay.classList.contains('toggled'));
     });
 
@@ -102,14 +112,8 @@
       }
     });
 
-    syncHeaderHeight();
-    window.addEventListener('resize', syncHeaderHeight, { passive: true });
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(syncHeaderHeight);
-    }
-
     /* Réinitialise l'overlay si la fenêtre repasse en desktop (> 48rem). */
-    var desktopQuery = window.matchMedia('(min-width: 48rem)');
+    var desktopQuery = window.matchMedia('(min-width: 48.0625rem)');
     function onBreakpointChange(e) {
       if (e.matches && overlay.classList.contains('toggled')) {
         setMenu(false);
