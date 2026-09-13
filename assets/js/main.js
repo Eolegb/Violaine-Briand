@@ -27,9 +27,12 @@
   }
 
   /* Bloque le défilement du fond sur iOS sans casser le header sticky.
-     On autorise le défilement à l'intérieur de l'overlay lui-même. */
+     On autorise les touchers qui démarrent dans l'overlay (qui doit
+     pouvoir défiler) ou sur le FAB (sinon un léger mouvement du doigt
+     annule le tap sur la croix de fermeture). */
   function onTouchMove(e) {
-    if (overlay && e.target && overlay.contains(e.target)) { return; }
+    var target = e.target;
+    if (target && ((overlay && overlay.contains(target)) || (fab && fab.contains(target)))) { return; }
     if (e.cancelable) { e.preventDefault(); }
   }
 
